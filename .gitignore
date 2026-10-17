@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.astro/
+*.log
+.DS_Store
+
+# El avatar se descarga de GitHub en cada build
+public/avatar.*

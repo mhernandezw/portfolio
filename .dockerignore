@@ -1,0 +1,10 @@
+node_modules
+dist
+.astro
+.git
+.github
+.vscode
+k8s
+README.md
+*.log
+public/avatar.*
