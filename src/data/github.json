@@ -1,0 +1,50 @@
+{
+  "fetchedAt": "2026-10-17T00:00:00.000Z",
+  "user": {
+    "login": "mhernandezw",
+    "html_url": "https://github.com/mhernandezw",
+    "avatar_url": "https://avatars.githubusercontent.com/u/43989758?v=4"
+  },
+  "avatar": null,
+  "repos": [
+    {
+      "name": "agente-eficiencia-energetica",
+      "description": null,
+      "html_url": "https://github.com/mhernandezw/agente-eficiencia-energetica",
+      "homepage": null,
+      "language": null,
+      "topics": [],
+      "stargazers_count": 0,
+      "fork": false,
+      "archived": false,
+      "created_at": "2026-04-20T18:17:42Z",
+      "pushed_at": "2026-07-03T06:56:32Z"
+    },
+    {
+      "name": "microk8s-local-ai-stack",
+      "description": "Kubernetes manifests to deploy a local AI & automation stack (n8n, Ollama, Open-WebUI) optimized for MicroK8s.",
+      "html_url": "https://github.com/mhernandezw/microk8s-local-ai-stack",
+      "homepage": null,
+      "language": null,
+      "topics": [],
+      "stargazers_count": 0,
+      "fork": false,
+      "archived": false,
+      "created_at": "2026-05-17T10:10:58Z",
+      "pushed_at": "2026-05-17T10:48:23Z"
+    },
+    {
+      "name": "n8n-local-ai-compose",
+      "description": null,
+      "html_url": "https://github.com/mhernandezw/n8n-local-ai-compose",
+      "homepage": null,
+      "language": null,
+      "topics": [],
+      "stargazers_count": 0,
+      "fork": false,
+      "archived": false,
+      "created_at": "2026-05-09T20:53:30Z",
+      "pushed_at": "2026-05-09T21:46:27Z"
+    }
+  ]
+}

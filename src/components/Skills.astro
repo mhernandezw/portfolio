@@ -1,0 +1,39 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+import { content, tr, type Lang } from '../lib/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const skills: any[] = content.skills ?? [];
+---
+
+<section class="section" id="skills" aria-labelledby="skills-title">
+  <div class="container">
+    <SectionHeading id="skills-title" kicker={t.skillsKicker} title={t.skillsTitle} intro={t.skillsIntro} />
+    <div class="skills-grid">
+      {
+        skills.map((group, i) => (
+          <article class="card glow lift skill-card reveal" style={`--d:${i % 3}`}>
+            <h3>
+              <span class="icon-box">
+                <Icon name={group.icon ?? 'code'} />
+              </span>
+              {tr(group.name, lang)}
+            </h3>
+            <ul class="chips">
+              {(group.items ?? []).map((item: string) => (
+                <li class="chip">{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,34 @@
+---
+import Icon from './Icon.astro';
+import { content, formatDate, type Lang } from '../lib/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const now = new Date();
+const links: any[] = content.profile.links ?? [];
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <p>© {now.getFullYear()} {content.profile.short_name}</p>
+      <p class="footer-meta">
+        {t.footerBuilt} · {t.lastUpdate}: <time datetime={now.toISOString()}>{formatDate(now, lang)}</time>
+      </p>
+    </div>
+    <div class="footer-links">
+      {
+        links.map((l) => (
+          <a class="icon-link" href={l.url} target="_blank" rel="noopener noreferrer" aria-label={l.name}>
+            <Icon name={l.icon} />
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</footer>

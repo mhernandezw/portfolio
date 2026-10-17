@@ -1,0 +1,42 @@
+---
+import Icon from './Icon.astro';
+import { content, type Lang } from '../lib/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const links: any[] = content.profile.links ?? [];
+---
+
+<section class="section" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact-card reveal">
+      <p class="kicker">{t.contactKicker}</p>
+      <h2 class="section-title" id="contact-title">
+        <span class="gradient-text">{t.contactTitle}</span>
+      </h2>
+      <p>{t.contactText}</p>
+      <div class="contact-actions">
+        {
+          links.map((l, i) => (
+            <a
+              class:list={['btn', i === 0 ? 'btn-primary' : 'btn-ghost']}
+              href={l.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name={l.icon} />
+              {l.name}
+              <Icon name="arrow" class="arrow" />
+            </a>
+          ))
+        }
+      </div>
+      <p class="privacy-note"><Icon name="lock" /> {t.privacy}</p>
+    </div>
+  </div>
+</section>

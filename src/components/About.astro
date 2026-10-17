@@ -1,0 +1,56 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { content, tr, inlineMd, yearsSince, type Lang } from '../lib/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  projectsCount: number;
+}
+
+const { lang, projectsCount } = Astro.props;
+const t = ui[lang];
+const paragraphs: string[] = tr(content.profile.about, lang) || [];
+const years = yearsSince(content.site.career_start);
+const learning = (content.education?.length ?? 0) + (content.courses?.length ?? 0);
+
+const stats = [
+  { key: 'experience', value: `${years}+`, label: t.stats.years, spark: 'M0 20 L15 18 L30 21 L45 12 L60 15 L75 8 L90 11 L105 5 L120 7' },
+  { key: 'ops', value: '24x7', label: t.stats.ops, spark: 'M0 14 L20 13 L40 14 L60 13 L80 14 L100 13 L120 14' },
+  { key: 'repos', value: String(projectsCount), label: t.stats.repos, spark: 'M0 24 L20 24 L40 18 L60 18 L80 12 L100 12 L120 6' },
+  { key: 'learning', value: String(learning), label: t.stats.learning, spark: 'M0 22 L20 20 L40 21 L60 14 L80 12 L100 7 L120 4' },
+];
+---
+
+<section class="section" id="about" aria-labelledby="about-title">
+  <div class="container">
+    <SectionHeading id="about-title" kicker={t.aboutKicker} title={t.aboutTitle} />
+    <div class="about-grid">
+      <div class="about-text reveal">
+        {paragraphs.map((para) => <p set:html={inlineMd(para)} />)}
+      </div>
+
+      <ul class="stats">
+        {
+          stats.map((s, i) => (
+            <li class="card glow stat reveal" style={`--d:${i}`}>
+              <div class="stat-head">
+                <span>{s.key}</span>
+                <span class="stat-status">
+                  <span class="dot" aria-hidden="true" />
+                  {t.statusOk}
+                </span>
+              </div>
+              <p class="stat-value gradient-text">{s.value}</p>
+              <p class="stat-label">{s.label}</p>
+              <svg class="spark" viewBox="0 0 120 28" preserveAspectRatio="none" aria-hidden="true">
+                <path d={`${s.spark} L120 28 L0 28 Z`} fill="currentColor" opacity="0.1" />
+                <path d={s.spark} fill="none" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

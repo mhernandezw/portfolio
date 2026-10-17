@@ -1,0 +1,244 @@
+# ============================================================================
+#  CONTENIDO DEL PORTAFOLIO · mhwrona.es
+# ----------------------------------------------------------------------------
+#  Este es el ÚNICO fichero que necesitas editar para actualizar la web.
+#
+#  · Textos bilingües:  { es: "Texto", en: "Text" }   (si falta "en", se usa "es")
+#  · Fechas:            "AAAA-MM" entre comillas (ej. "2020-08").
+#                       end: null  =>  se muestra "Actualidad"
+#  · Negritas:          **texto** dentro de los puntos de experiencia
+#
+#  Publicar cambios:
+#    1) git commit + git push  ->  GitHub Actions construye la imagen
+#    2) En el servidor:  microk8s kubectl rollout restart deployment/portfolio -n portfolio
+# ============================================================================
+
+site:
+  url: https://mhwrona.es
+  github_user: mhernandezw
+  career_start: 2016          # Año de inicio profesional (calcula los "años de experiencia")
+
+# ----------------------------------------------------------------------------
+#  PERFIL
+# ----------------------------------------------------------------------------
+profile:
+  name: Marcelo Carlos Hernández Wrona
+  first_name: Marcelo Carlos
+  last_name: Hernández Wrona
+  short_name: Marcelo Hernández
+  initials: MH
+  role:
+    es: Administrador de Sistemas e Infraestructura
+    en: Systems & Infrastructure Administrator
+  focus:
+    es: [Observabilidad, Automatización, Kubernetes, IA aplicada]
+    en: [Observability, Automation, Kubernetes, Applied AI]
+  headline:
+    es: >-
+      Mantengo sistemas críticos disponibles, observables y automatizados.
+      Del centro de datos 24x7 a la observabilidad SaaS, y ahora también
+      Kubernetes e IA aplicada en mi home-lab.
+    en: >-
+      I keep critical systems available, observable and automated.
+      From 24x7 data-center operations to SaaS observability, and now
+      Kubernetes and applied AI in my home-lab.
+  about:
+    es:
+      - >-
+        Profesional en administración de sistemas informáticos e infraestructura con
+        amplia trayectoria en **monitorización, observabilidad, automatización de flujos
+        de trabajo críticos** y gestión avanzada de **copias de seguridad**. Experiencia
+        acreditada en la administración operativa de entornos heterogéneos On-Premise y
+        SaaS, asegurando la alta disponibilidad y la continuidad del negocio.
+      - >-
+        En Minsait gestiono la disponibilidad y el rendimiento de la infraestructura con
+        OBM, NNM, SiteScope y Dynatrace, orquesto flujos críticos con Control-M y
+        administro la protección de datos con Data Protector y Commvault Metallic.
+      - >-
+        Me formo de manera continua y pongo en práctica lo aprendido en un **home-lab
+        sobre MicroK8s**, donde experimento con IA local (Ollama, Open WebUI) y
+        automatización con n8n. Este mismo portafolio se sirve desde ese clúster.
+    en:
+      - >-
+        Systems and infrastructure professional with a long track record in
+        **monitoring, observability, automation of business-critical workflows** and
+        advanced **backup management**. Proven experience operating heterogeneous
+        on-premises and SaaS environments, ensuring high availability and business
+        continuity.
+      - >-
+        At Minsait I manage infrastructure availability and performance with OBM, NNM,
+        SiteScope and Dynatrace, orchestrate critical workflows with Control-M and run
+        data protection with Data Protector and Commvault Metallic.
+      - >-
+        I keep learning continuously and put it into practice in a **MicroK8s
+        home-lab**, where I experiment with local AI (Ollama, Open WebUI) and
+        automation with n8n. This very portfolio is served from that cluster.
+  links:
+    - name: LinkedIn
+      icon: linkedin
+      url: https://www.linkedin.com/in/marcelo-h-74a44950/
+    - name: GitHub
+      icon: github
+      url: https://github.com/mhernandezw
+
+# ----------------------------------------------------------------------------
+#  TECNOLOGÍAS  (icon: activity | automation | shield | cloud | cpu | clipboard | server | code)
+# ----------------------------------------------------------------------------
+skills:
+  - name: { es: Monitorización y observabilidad, en: Monitoring & observability }
+    icon: activity
+    items: [OBM, NNM, SiteScope, Dynatrace, OpenTelemetry]
+  - name: { es: Automatización y scripting, en: Automation & scripting }
+    icon: automation
+    items: [Control-M, Ansible, n8n, Python, GitHub Copilot]
+  - name: { es: Backup y recuperación ante desastres, en: Backup & disaster recovery }
+    icon: shield
+    items: [Data Protector, Commvault Metallic]
+  - name: { es: Contenedores y cloud, en: Containers & cloud }
+    icon: cloud
+    items: [Kubernetes, MicroK8s, Docker Compose, Traefik, Google Cloud Platform]
+  - name: { es: IA aplicada, en: Applied AI }
+    icon: cpu
+    items: [Agentes de IA, Ollama, Open WebUI, Google Gemini]
+  - name: { es: Gestión de servicios y operación, en: Service management & operations }
+    icon: clipboard
+    items: [ITIL v4, Operación 24x7, Gestión de incidencias, Windows]
+
+# ----------------------------------------------------------------------------
+#  EXPERIENCIA  (de más reciente a más antigua)
+# ----------------------------------------------------------------------------
+experience:
+  - company: Minsait
+    role:
+      es: Administrador de Sistemas e Infraestructura · Monitorización y Observabilidad
+      en: Systems & Infrastructure Administrator · Monitoring & Observability
+    start: "2020-08"
+    end: null
+    bullets:
+      es:
+        - "**Monitorización y observabilidad:** gestión integral de la disponibilidad y el rendimiento con OBM (2021.05), NNM y SiteScope en entornos On-Premise, y Dynatrace en entornos SaaS."
+        - "**Automatización de procesos:** planificación y orquestación de flujos de trabajo críticos con Control-M (9.0.21.200)."
+        - "**Protección de datos:** administración avanzada de copias de seguridad y recuperación ante desastres con Data Protector y Commvault Metallic."
+      en:
+        - "**Monitoring & observability:** end-to-end availability and performance management with OBM (2021.05), NNM and SiteScope on-premises, and Dynatrace in SaaS environments."
+        - "**Process automation:** scheduling and orchestration of business-critical workflows with Control-M (9.0.21.200)."
+        - "**Data protection:** advanced backup and disaster-recovery administration with Data Protector and Commvault Metallic."
+    tags: [OBM, NNM, SiteScope, Dynatrace, Control-M, Data Protector, Commvault Metallic]
+
+  - company: Minsait
+    client: Enagás
+    role: { es: Operador de Sistemas 24x7, en: 24x7 Systems Operator }
+    start: "2018-08"
+    end: "2020-08"
+    bullets:
+      es:
+        - "Operación de sistemas en modalidad **24x7**, monitorizando el centro de datos en las instalaciones del cliente Enagás."
+        - "Aplicación de procedimientos ante incidencias en servidores y escalado especializado al área técnica correspondiente."
+        - "Monitorización de procesos críticos y copias de seguridad con **Control-M** y **Data Protector**."
+      en:
+        - "**24x7** systems operations, monitoring the data center on the client's premises (Enagás)."
+        - "Execution of incident procedures on servers and specialised escalation to the relevant technical teams."
+        - "Monitoring of critical processes and backups with **Control-M** and **Data Protector**."
+    tags: [Control-M, Data Protector, 24x7, Data center]
+
+  - company: Oesía Networks
+    client: Comunidad de Madrid
+    role: { es: Técnico de Soporte y Migraciones, en: Support & Migration Technician }
+    start: "2016-03"
+    end: "2018-08"
+    bullets:
+      es:
+        - "Proyecto de migración de equipos de la **Comunidad de Madrid** de Windows XP a Windows 8.1 y Windows 10."
+        - "Creación y ejecución de **scripts automatizados** para copias de seguridad en discos esclavos de los nuevos equipos."
+        - "Maquetación de puestos de trabajo, configuración de equipos, migración de datos, instalación de periféricos, resolución de incidencias y soporte directo al usuario final."
+      en:
+        - "Workstation migration project for the **Comunidad de Madrid** (regional government) from Windows XP to Windows 8.1 and Windows 10."
+        - "Creation and execution of **automated scripts** for backups onto secondary disks of the new machines."
+        - "Workstation imaging and setup, data migration, peripheral installation, incident resolution and direct end-user support."
+    tags: [Windows 10, Windows 8.1, Scripting, Backup, Helpdesk]
+
+# ----------------------------------------------------------------------------
+#  FORMACIÓN ACADÉMICA
+# ----------------------------------------------------------------------------
+education:
+  - title: { es: Máster en IA e Innovación, en: Master's in AI & Innovation }
+    institution: Founderz
+    year: 2026
+    url: https://learn.founderz.com/certificate/master-online-en-ia-e-innovacion-2026/613a1819-585d-4ef6-8f51-2113cc009d0b
+  - title:
+      es: Grado Superior en Administración de Sistemas Informáticos en Red (ASIR)
+      en: Higher Technical Degree in Networked Computer Systems Administration (ASIR)
+    institution: Ilerna
+    year: 2024
+
+# ----------------------------------------------------------------------------
+#  CURSOS Y CERTIFICACIONES
+#  Para añadir uno nuevo, copia este bloque (provider y url son opcionales):
+#
+#  - title: { es: "Nombre del curso", en: "Course name" }
+#    provider: "Plataforma / Academia"
+#    year: 2026
+#    url: https://enlace-al-certificado
+#    tags: [Kubernetes]
+# ----------------------------------------------------------------------------
+courses:
+  - title: OpenTelemetry Essentials
+    year: 2026
+    tags: [OpenTelemetry]
+  - title: { es: Automatización con n8n y agentes de IA, en: Automation with n8n and AI agents }
+    year: 2026
+    tags: [n8n, AI Agents]
+  - title: { es: Visual Studio Code y GitHub Copilot, en: Visual Studio Code & GitHub Copilot }
+    year: 2025
+    tags: [VS Code, Copilot]
+  - title: Python
+    year: 2025
+    tags: [Python]
+  - title: Ansible
+    year: 2025
+    tags: [Ansible]
+  - title: ITIL v4 Foundation
+    year: 2023
+    tags: [ITSM]
+  - title: Kubernetes
+    year: 2023
+    tags: [Kubernetes]
+  - title: { es: Administración de Google Cloud Platform (GCP), en: Google Cloud Platform (GCP) Administration }
+    year: 2021
+    tags: [GCP]
+
+# ----------------------------------------------------------------------------
+#  PROYECTOS DE GITHUB
+#  Se muestran AUTOMÁTICAMENTE todos tus repos públicos (sin forks).
+#  Aquí solo ajustas cómo se ven: descripción bilingüe, etiquetas, destacados
+#  u ocultar alguno. Si un repo no tiene override, se usan la descripción y los
+#  topics que tenga en GitHub.
+# ----------------------------------------------------------------------------
+github:
+  exclude_forks: true
+  exclude_archived: false
+  exclude:                     # Nombres de repos que NO quieres mostrar
+    - mhernandezw              # (repo especial del README de perfil, si existe)
+  overrides:
+    microk8s-local-ai-stack:
+      featured: true
+      description:
+        es: Manifiestos de Kubernetes para desplegar un stack local de automatización e IA (n8n, Ollama y Open WebUI) optimizado para MicroK8s.
+        en: Kubernetes manifests to deploy a local AI & automation stack (n8n, Ollama and Open WebUI) optimised for MicroK8s.
+      tags: [Kubernetes, MicroK8s, n8n, Ollama, Open WebUI]
+    agente-eficiencia-energetica:
+      featured: true
+      description:
+        es: Agente de IA en n8n que cruza la predicción horaria de AEMET con los precios PVPC de REE y envía cada día por Telegram recomendaciones para ahorrar energía manteniendo el confort térmico.
+        en: n8n AI agent that combines AEMET hourly forecasts with REE electricity prices (PVPC) and sends daily Telegram recommendations to save energy while keeping thermal comfort.
+      tags: [n8n, Google Gemini, Telegram, AEMET, REE]
+    n8n-local-ai-compose:
+      description:
+        es: Despliegue documentado de n8n con IA local (Ollama + Open WebUI) mediante Docker Compose, con Traefik como proxy inverso y certificados TLS automáticos de Let's Encrypt.
+        en: Documented deployment of n8n with local AI (Ollama + Open WebUI) using Docker Compose, with Traefik as reverse proxy and automatic Let's Encrypt TLS certificates.
+      tags: [Docker Compose, n8n, Ollama, Traefik]
+    portfolio:
+      description:
+        es: Este portafolio. Sitio estático con Astro y contenido en YAML, imagen construida con GitHub Actions y desplegada en MicroK8s detrás de NGINX Ingress y cert-manager.
+        en: This portfolio. Static Astro site with YAML content, image built with GitHub Actions and deployed on MicroK8s behind NGINX Ingress and cert-manager.
+      tags: [Astro, Kubernetes, GitHub Actions, NGINX]

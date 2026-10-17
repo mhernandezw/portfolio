@@ -1,0 +1,68 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { content, tr, inlineMd, formatMonth, duration, type Lang } from '../lib/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const jobs: any[] = content.experience ?? [];
+---
+
+<section class="section" id="experience" aria-labelledby="experience-title">
+  <div class="container">
+    <SectionHeading id="experience-title" kicker={t.experienceKicker} title={t.experienceTitle} />
+    <ol class="timeline">
+      {
+        jobs.map((job, i) => {
+          const isCurrent = !job.end;
+          const bullets: string[] = tr(job.bullets, lang) || [];
+          return (
+            <li class:list={['tl-item', 'reveal', { 'is-current': isCurrent }]} style={`--d:${i}`}>
+              <span class="tl-dot" aria-hidden="true" />
+              <article class="card glow">
+                <div class="tl-head">
+                  <div>
+                    <h3 class="tl-role">{tr(job.role, lang)}</h3>
+                    <p class="tl-company">
+                      <span>{job.company}</span>
+                      {job.client && (
+                        <span class="tl-client">
+                          · {t.client}: {job.client}
+                        </span>
+                      )}
+                      {isCurrent && <span class="badge badge-ok">{t.current}</span>}
+                    </p>
+                  </div>
+                  <p class="tl-date">
+                    <time datetime={job.start}>{formatMonth(job.start, lang)}</time>
+                    {' — '}
+                    {job.end ? <time datetime={job.end}>{formatMonth(job.end, lang)}</time> : t.present}
+                    <span class="tl-duration">{duration(job.start, job.end, lang)}</span>
+                  </p>
+                </div>
+                {bullets.length > 0 && (
+                  <ul class="tl-bullets">
+                    {bullets.map((b) => (
+                      <li set:html={inlineMd(b)} />
+                    ))}
+                  </ul>
+                )}
+                {job.tags?.length > 0 && (
+                  <ul class="chips">
+                    {job.tags.map((tag: string) => (
+                      <li class="chip chip-sm">{tag}</li>
+                    ))}
+                  </ul>
+                )}
+              </article>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </div>
+</section>

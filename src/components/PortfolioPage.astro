@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import About from './About.astro';
+import Skills from './Skills.astro';
+import Experience from './Experience.astro';
+import Projects from './Projects.astro';
+import Education from './Education.astro';
+import Contact from './Contact.astro';
+import Footer from './Footer.astro';
+import { content, tr, getProjects, avatarPath, type Lang } from '../lib/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const path = lang === 'es' ? '/' : '/en/';
+const site = String(content.site.url).replace(/\/$/, '');
+const avatar = avatarPath();
+const projects = getProjects(lang);
+const current = (content.experience ?? []).find((e: any) => !e.end);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: content.profile.name,
+  jobTitle: tr(content.profile.role, lang),
+  url: `${site}${path}`,
+  ...(avatar ? { image: `${site}${avatar}` } : {}),
+  sameAs: (content.profile.links ?? []).map((l: any) => l.url),
+  ...(current ? { worksFor: { '@type': 'Organization', name: current.company } } : {}),
+  alumniOf: (content.education ?? []).map((e: any) => ({ '@type': 'EducationalOrganization', name: e.institution })),
+  knowsAbout: (content.skills ?? []).flatMap((s: any) => s.items ?? []),
+};
+---
+
+<Base lang={lang} title={t.metaTitle} description={t.metaDescription} path={path} image={avatar} jsonLd={jsonLd}>
+  <a class="skip-link" href="#main">{t.skip}</a>
+  <div class="bg" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+    <div class="bg-glow bg-glow--3"></div>
+  </div>
+
+  <Header lang={lang} />
+
+  <main id="main" tabindex="-1">
+    <Hero lang={lang} avatar={avatar} />
+    <About lang={lang} projectsCount={projects.length} />
+    <Skills lang={lang} />
+    <Experience lang={lang} />
+    <Projects lang={lang} projects={projects} />
+    <Education lang={lang} />
+    <Contact lang={lang} />
+  </main>
+
+  <Footer lang={lang} />
+</Base>

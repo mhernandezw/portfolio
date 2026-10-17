@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { ui } from '../i18n/ui';
+
+const es = ui.es;
+const en = ui.en;
+---
+
+<Base lang="es" title={`404 · ${es.notFoundTitle}`} description={es.notFoundText} path="/404" noindex>
+  <div class="bg" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow--1"></div>
+    <div class="bg-glow bg-glow--2"></div>
+  </div>
+  <main class="notfound">
+    <div>
+      <p class="notfound-code gradient-text">404</p>
+      <h1 class="section-title">{es.notFoundTitle}</h1>
+      <p>{es.notFoundText}<br /><span lang="en">{en.notFoundText}</span></p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="/">
+          {es.backHome}
+          <Icon name="arrow" class="arrow" />
+        </a>
+        <a class="btn btn-ghost" href="/en/" lang="en">{en.backHome}</a>
+      </div>
+    </div>
+  </main>
+</Base>

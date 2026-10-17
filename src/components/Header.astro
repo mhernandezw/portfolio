@@ -1,0 +1,55 @@
+---
+import { content, type Lang } from '../lib/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const home = lang === 'es' ? '/' : '/en/';
+const sections = ['about', 'skills', 'experience', 'projects', 'education', 'contact'] as const;
+const domain = new URL(content.site.url).hostname;
+const [domName, ...tld] = domain.split('.');
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href={home} class="brand" aria-label={content.profile.short_name}>
+      <span class="brand-mark" aria-hidden="true">{content.profile.initials}</span>
+      <span class="brand-text">{domName}<span class="accent">.{tld.join('.')}</span></span>
+    </a>
+
+    <nav id="site-nav" class="site-nav" aria-label={t.navLabel}>
+      <ul>
+        {
+          sections.map((id) => (
+            <li>
+              <a href={`#${id}`} data-nav={id}>
+                {t.nav[id]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-switch" role="group" aria-label={t.langLabel}>
+        <a href="/" hreflang="es" lang="es" data-lang-link aria-current={lang === 'es' ? 'page' : undefined}>ES</a>
+        <a href="/en/" hreflang="en" lang="en" data-lang-link aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
+      </div>
+      <button
+        id="nav-toggle"
+        class="nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label={t.menu}
+      >
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>

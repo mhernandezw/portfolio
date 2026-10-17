@@ -1,0 +1,61 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import { content, type Lang } from '../lib/content';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  path: string;
+  image?: string | null;
+  jsonLd?: Record<string, unknown>;
+  noindex?: boolean;
+}
+
+const { lang, title, description, path, image, jsonLd, noindex = false } = Astro.props;
+const site = String(content.site.url).replace(/\/$/, '');
+const canonical = `${site}${path}`;
+const ogImage = image ? `${site}${image}` : null;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={content.profile.name} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <meta name="theme-color" content="#070b12" />
+    <meta name="color-scheme" content="dark" />
+
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={`${site}/`} />
+    <link rel="alternate" hreflang="en" href={`${site}/en/`} />
+    <link rel="alternate" hreflang="x-default" href={`${site}/`} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content={content.profile.short_name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Marca <html class="js"> antes del primer pintado (animaciones progresivas) -->
+    <script is:inline src="/js/init.js"></script>
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <slot />
+    <script is:inline src="/js/main.js" defer></script>
+  </body>
+</html>

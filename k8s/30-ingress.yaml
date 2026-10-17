@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: portfolio
+  namespace: portfolio
+  labels:
+    app.kubernetes.io/name: portfolio
+    app.kubernetes.io/part-of: mhwrona
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  # Debe coincidir con la clase del solver HTTP-01 del ClusterIssuer ("public")
+  ingressClassName: public
+  tls:
+    - hosts:
+        - mhwrona.es
+      secretName: mhwrona-es-tls
+  rules:
+    - host: mhwrona.es
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: portfolio
+                port:
+                  name: http

@@ -1,0 +1,83 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+import { content, formatMonthShort, type Lang, type Project } from '../lib/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  projects: Project[];
+}
+
+const { lang, projects } = Astro.props;
+const t = ui[lang];
+const githubUrl = `https://github.com/${content.site.github_user}`;
+---
+
+<section class="section" id="projects" aria-labelledby="projects-title">
+  <div class="container">
+    <SectionHeading id="projects-title" kicker={t.projectsKicker} title={t.projectsTitle} intro={t.projectsIntro} />
+
+    {
+      projects.length > 0 ? (
+        <div class="projects-grid">
+          {projects.map((p, i) => (
+            <article class="card glow project reveal" style={`--d:${i % 3}`}>
+              <div class="project-top">
+                <span class="icon-box">
+                  <Icon name="repo" />
+                </span>
+                <div class="project-badges">
+                  {p.featured && <span class="badge">{t.featured}</span>}
+                  {p.archived && <span class="badge">{t.archived}</span>}
+                </div>
+              </div>
+              <h3>
+                <a href={p.url} target="_blank" rel="noopener noreferrer">
+                  {p.name}
+                </a>
+              </h3>
+              <p class:list={['project-desc', { 'is-empty': !p.description }]}>{p.description || t.noDescription}</p>
+              {p.tags.length > 0 && (
+                <ul class="chips">
+                  {p.tags.map((tag) => (
+                    <li class="chip chip-sm">{tag}</li>
+                  ))}
+                </ul>
+              )}
+              <div class="project-foot">
+                <span>
+                  {p.pushedAt && (
+                    <>
+                      {t.updated} <time datetime={p.pushedAt}>{formatMonthShort(p.pushedAt, lang)}</time>
+                    </>
+                  )}
+                  {p.stars > 0 && (
+                    <span class="project-stars">
+                      {' · '}
+                      <Icon name="star" /> {p.stars}
+                    </span>
+                  )}
+                </span>
+                <span class="project-link">
+                  {t.viewRepo}
+                  <Icon name="external" />
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p class="empty-state reveal">{t.noProjects}</p>
+      )
+    }
+
+    <div class="projects-more reveal">
+      <a class="btn btn-ghost" href={githubUrl} target="_blank" rel="noopener noreferrer">
+        <Icon name="github" />
+        {t.allRepos}
+        <Icon name="arrow" class="arrow" />
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+{
+  "name": "mhwrona-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Portafolio personal de Marcelo Hernández Wrona (Astro, servido con NGINX en MicroK8s)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "fetch:github": "node scripts/fetch-github.mjs",
+    "dev": "node scripts/fetch-github.mjs && astro dev",
+    "prebuild": "node scripts/fetch-github.mjs",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.1.0",
+    "@fontsource-variable/jetbrains-mono": "^5.1.0",
+    "astro": "^5.0.0",
+    "yaml": "^2.5.0"
+  }
+}

@@ -1,0 +1,87 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import Icon from './Icon.astro';
+import { content, tr, type Lang } from '../lib/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+
+const education: any[] = [...(content.education ?? [])].sort((a, b) => Number(b.year) - Number(a.year));
+const courses: any[] = [...(content.courses ?? [])].sort((a, b) => Number(b.year) - Number(a.year));
+
+const byYear = new Map<number, any[]>();
+for (const c of courses) {
+  const y = Number(c.year);
+  if (!byYear.has(y)) byYear.set(y, []);
+  byYear.get(y)!.push(c);
+}
+const years = [...byYear.entries()];
+---
+
+<section class="section" id="education" aria-labelledby="education-title">
+  <div class="container">
+    <SectionHeading id="education-title" kicker={t.educationKicker} title={t.educationTitle} intro={t.educationIntro} />
+
+    <div class="edu-grid">
+      <div class="reveal">
+        <h3 class="sub-title"><Icon name="graduation" /> {t.academic}</h3>
+        <ul class="edu-list">
+          {
+            education.map((e) => (
+              <li class="card glow edu-card">
+                <span class="edu-year">{e.year}</span>
+                <h4>{tr(e.title, lang)}</h4>
+                <p class="edu-inst">{e.institution}</p>
+                {e.url && (
+                  <a class="btn btn-ghost btn-sm" href={e.url} target="_blank" rel="noopener noreferrer">
+                    <Icon name="check" />
+                    {t.verify}
+                    <Icon name="external" />
+                  </a>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="reveal" style="--d:1">
+        <h3 class="sub-title"><Icon name="award" /> {t.courses}</h3>
+        <div class="courses">
+          {
+            years.map(([year, list]) => (
+              <div class="course-year">
+                <span class="course-year-label">{year}</span>
+                <ul class="course-list">
+                  {list.map((c) => (
+                    <li class="course">
+                      <div>
+                        <span class="course-title">{tr(c.title, lang)}</span>
+                        {c.provider && <span class="course-provider">{c.provider}</span>}
+                      </div>
+                      <div class="course-side">
+                        {(c.tags ?? []).map((tag: string) => (
+                          <span class="chip chip-sm">{tag}</span>
+                        ))}
+                        {c.url && (
+                          <a href={c.url} target="_blank" rel="noopener noreferrer" aria-label={t.verify}>
+                            <Icon name="external" />
+                          </a>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

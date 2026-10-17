@@ -1,0 +1,139 @@
+---
+import Icon from './Icon.astro';
+import { content, tr, yearsSince, escapeHtml, type Lang } from '../lib/content';
+import { ui } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  avatar: string | null;
+}
+
+const { lang, avatar } = Astro.props;
+const t = ui[lang];
+const p = content.profile;
+const current = (content.experience ?? []).find((e: any) => !e.end);
+const years = yearsSince(content.site.career_start);
+const focus: string[] = tr(p.focus, lang) || [];
+const links: any[] = p.links ?? [];
+const linkedin = links.find((l) => l.icon === 'linkedin');
+const github = links.find((l) => l.icon === 'github');
+
+const domain = new URL(content.site.url).hostname;
+const firstName = String(p.first_name ?? p.name).split(' ')[0].toLowerCase();
+const company = current ? escapeHtml(String(current.company).toLowerCase()) : '';
+const focusLine = escapeHtml(focus.map((f) => f.toLowerCase()).join(' · '));
+
+// Líneas del terminal decorativo del hero
+const lines: { cmd?: boolean; html: string }[] = [
+  { cmd: true, html: 'whoami' },
+  {
+    html: `<span class="t-hl">${escapeHtml(firstName)}</span> <span class="t-dim">·</span> sysadmin${
+      company ? ` <span class="t-dim">@</span> ${company}` : ''
+    }`,
+  },
+  { cmd: true, html: 'microk8s kubectl get pods -n portfolio' },
+  { html: '<span class="t-dim">NAME                        READY   STATUS    AGE</span>' },
+  { html: `portfolio-7f9c6d5b8-mhw01   1/1     <span class="t-ok">Running</span>   ${years}y` },
+  { cmd: true, html: 'cat focus.txt' },
+  { html: `<span class="t-key">${focusLine}</span>` },
+];
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      {
+        current && (
+          <p class="eyebrow reveal">
+            <span class="dot dot-live" aria-hidden="true" />
+            <span>
+              {t.currentlyAt} <strong>{current.company}</strong>
+            </span>
+          </p>
+        )
+      }
+      <h1 id="hero-title" class="reveal" style="--d:1">
+        {p.first_name}
+        <span class="gradient-text">{p.last_name}</span>
+      </h1>
+      <p class="hero-role reveal" style="--d:2">{tr(p.role, lang)}</p>
+      <ul class="chips hero-focus reveal" style="--d:3">
+        {focus.map((f) => <li class="chip">{f}</li>)}
+      </ul>
+      <p class="hero-summary reveal" style="--d:4">{tr(p.headline, lang)}</p>
+      <div class="hero-cta reveal" style="--d:5">
+        <a class="btn btn-primary" href="#projects">
+          {t.ctaProjects}
+          <Icon name="arrow" class="arrow" />
+        </a>
+        {
+          linkedin && (
+            <a class="btn btn-ghost" href={linkedin.url} target="_blank" rel="noopener noreferrer">
+              <Icon name="linkedin" />
+              LinkedIn
+            </a>
+          )
+        }
+        {
+          github && (
+            <a class="btn btn-ghost" href={github.url} target="_blank" rel="noopener noreferrer">
+              <Icon name="github" />
+              GitHub
+            </a>
+          )
+        }
+      </div>
+    </div>
+
+    <div class="hero-visual reveal" style="--d:3">
+      <div class="avatar-wrap">
+        {
+          avatar ? (
+            <img class="avatar" src={avatar} alt={p.name} width="112" height="112" decoding="async" />
+          ) : (
+            <div class="avatar avatar-fallback gradient-text" role="img" aria-label={p.name}>
+              {p.initials}
+            </div>
+          )
+        }
+      </div>
+
+      <div class="terminal" aria-hidden="true">
+        <div class="terminal-bar">
+          <i></i><i></i><i></i>
+          <span class="terminal-title">{firstName}@n100: ~</span>
+        </div>
+        <div class="terminal-body">
+          {
+            lines.map((line, i) => (
+              <div class:list={['t-line', { 't-cmd': line.cmd }]} style={`--i:${i}`}>
+                {line.cmd && <span class="t-prompt">$ </span>}
+                <Fragment set:html={line.html} />
+              </div>
+            ))
+          }
+          <div class="t-line" style={`--i:${lines.length}`}>
+            <span class="t-prompt">$ </span><span class="cursor"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-float" aria-hidden="true">
+        <div class="metric-head"><span class="dot dot-live"></span>{domain}</div>
+        <svg class="metric-spark" viewBox="0 0 100 24" preserveAspectRatio="none">
+          <path
+            d="M0 18 L10 16 L20 17 L30 12 L40 14 L50 9 L60 11 L70 6 L80 8 L90 4 L100 5 L100 24 L0 24 Z"
+            fill="currentColor"
+            opacity="0.12"></path>
+          <path
+            d="M0 18 L10 16 L20 17 L30 12 L40 14 L50 9 L60 11 L70 6 L80 8 L90 4 L100 5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            vector-effect="non-scaling-stroke"></path>
+        </svg>
+        <div class="metric-foot"><span>status</span><strong>healthy</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
