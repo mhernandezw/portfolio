@@ -87,7 +87,7 @@ profile:
 skills:
   - name: { es: Monitorización y observabilidad, en: Monitoring & observability }
     icon: activity
-    items: [OBM, NNM, SiteScope, Dynatrace, OpenTelemetry]
+    items: [OBM, NNM, SiteScope, Dynatrace, OpenTelemetry, Grafana]
   - name: { es: Automatización y scripting, en: Automation & scripting }
     icon: automation
     items: [Control-M, Ansible, n8n, Python, GitHub Copilot]
@@ -185,7 +185,7 @@ education:
 courses:
   - title: OpenTelemetry Essentials
     year: 2026
-    tags: [OpenTelemetry]
+    tags: [OpenTelemetry, Grafana, Prometheus]
   - title: { es: Automatización con n8n y agentes de IA, en: Automation with n8n and AI agents }
     year: 2026
     tags: [n8n, AI Agents]
