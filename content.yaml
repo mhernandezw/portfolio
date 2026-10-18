@@ -108,7 +108,8 @@ skills:
 #  EXPERIENCIA  (de más reciente a más antigua)
 # ----------------------------------------------------------------------------
 experience:
-  - company: Minsait
+  - company: Indra Group
+    client: Enagás
     role:
       es: Administrador de Sistemas e Infraestructura · Monitorización y Observabilidad
       en: Systems & Infrastructure Administrator · Monitoring & Observability
@@ -125,7 +126,7 @@ experience:
         - "**Data protection:** advanced backup and disaster-recovery administration with Data Protector and Commvault Metallic."
     tags: [OBM, NNM, SiteScope, Dynatrace, Control-M, Data Protector, Commvault Metallic]
 
-  - company: Minsait
+  - company: Indra Group
     client: Enagás
     role: { es: Operador de Sistemas 24x7, en: 24x7 Systems Operator }
     start: "2018-08"
